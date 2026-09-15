@@ -1,252 +1,81 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio | Nama Kamu</title>
-
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{font-family:Arial,Helvetica,sans-serif;line-height:1.6;color:#1f2937;background:#fff}
-    a{text-decoration:none;color:inherit}
-    .container{width:min(1100px,90%);margin:auto}
-
-    .header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,255,.95);border-bottom:1px solid #eee;backdrop-filter:blur(10px)}
-    .navbar{height:72px;display:flex;align-items:center;justify-content:space-between}
-    .logo{font-size:25px;font-weight:800}
-    .logo span,.hero h1 span{color:#6366f1}
-    .nav-links{display:flex;list-style:none;gap:30px}
-    .nav-links a{font-size:15px;font-weight:600;transition:.3s}
-    .nav-links a:hover{color:#6366f1}
-    .menu-toggle{display:none;border:0;background:none;font-size:27px;cursor:pointer}
-
-    .hero{min-height:100vh;display:flex;align-items:center;background:linear-gradient(135deg,#f8f9ff,#fff);padding-top:72px}
-    .hero-content{display:grid;grid-template-columns:1.2fr .8fr;gap:60px;align-items:center}
-    .eyebrow,.section-title p{color:#6366f1;font-weight:800;letter-spacing:2px;font-size:13px}
-    .hero h1{margin-top:8px;font-size:clamp(48px,7vw,78px);line-height:1.05}
-    .hero h2{margin:15px 0;font-size:25px;color:#4b5563}
-    .hero-description{max-width:600px;color:#6b7280;font-size:17px}
-    .hero-buttons{display:flex;gap:15px;margin-top:30px}
-    .btn{display:inline-block;padding:13px 23px;border-radius:10px;font-weight:700;transition:.3s}
-    .btn.primary{background:#6366f1;color:#fff}
-    .btn.primary:hover{transform:translateY(-2px);background:#4f46e5}
-    .btn.secondary{border:1px solid #d1d5db;background:#fff}
-    .btn.secondary:hover{border-color:#6366f1;color:#6366f1}
-
-    .profile-card{min-height:370px;border-radius:25px;background:#6366f1;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;box-shadow:0 25px 60px rgba(99,102,241,.25)}
-    .profile-circle{width:190px;height:190px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#6366f1;font-size:50px;font-weight:800;border:8px solid rgba(255,255,255,.3)}
-    .profile-card p{margin-top:20px;font-weight:700}
-
-    .section{padding:100px 0}
-    .section.alt{background:#f8f9ff}
-    .section-title{text-align:center;margin-bottom:50px}
-    .section-title h2{margin-top:7px;font-size:38px}
-
-    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
-    .about-grid h3{font-size:25px;margin-bottom:15px}
-    .about-grid p{color:#6b7280;margin-bottom:15px}
-    .info-box{padding:25px;border:1px solid #e5e7eb;border-radius:15px;background:#fff}
-    .info-box div{display:flex;justify-content:space-between;gap:20px;padding:15px 0;border-bottom:1px solid #eee}
-    .info-box div:last-child{border-bottom:0}
-    .info-box span{color:#6b7280;text-align:right}
-
-    .skills-grid,.projects-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-    .skill-card{padding:28px 20px;background:#fff;border:1px solid #e5e7eb;border-radius:15px;text-align:center;transition:.3s}
-    .skill-card:hover,.project-card:hover{transform:translateY(-5px);box-shadow:0 15px 35px rgba(0,0,0,.08)}
-    .skill-icon{width:65px;height:65px;margin:0 auto 18px;border-radius:14px;display:grid;place-items:center;background:#eef2ff;color:#6366f1;font-size:14px;font-weight:800}
-    .skill-card h3{margin-bottom:8px}
-    .skill-card p,.project-content p{color:#6b7280;font-size:14px}
-
-    .projects-grid{grid-template-columns:repeat(3,1fr)}
-    .project-card{overflow:hidden;background:#fff;border:1px solid #e5e7eb;border-radius:15px;transition:.3s}
-    .project-image{height:180px;display:grid;place-items:center;background:#e0e7ff;color:#6366f1;font-weight:800;letter-spacing:2px}
-    .project-content{padding:22px}
-    .project-content h3{margin-bottom:8px}
-    .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}
-    .tags span{padding:5px 9px;border-radius:7px;background:#f1f5f9;color:#475569;font-size:11px;font-weight:700}
-
-    .contact-box{display:flex;justify-content:space-between;align-items:center;gap:30px;padding:45px;border-radius:20px;background:#111827;color:#fff}
-    .contact-box h3{font-size:27px;margin-bottom:10px}
-    .contact-box p{max-width:650px;color:#d1d5db}
-    footer{padding:25px;text-align:center;background:#f8f9ff;color:#6b7280;font-size:14px}
-
-    @media(max-width:850px){
-      .menu-toggle{display:block}
-      .nav-links{position:absolute;top:72px;left:0;width:100%;padding:20px;display:none;flex-direction:column;gap:18px;background:#fff;border-bottom:1px solid #eee}
-      .nav-links.active{display:flex}
-      .hero-content,.about-grid{grid-template-columns:1fr}
-      .profile-card{min-height:300px}
-      .skills-grid{grid-template-columns:repeat(2,1fr)}
-      .projects-grid{grid-template-columns:1fr}
-      .contact-box{flex-direction:column;align-items:flex-start}
-    }
-    @media(max-width:500px){
-      .hero{padding-top:100px}
-      .hero-buttons{flex-direction:column}
-      .btn{text-align:center}
-      .skills-grid{grid-template-columns:1fr}
-      .section{padding:75px 0}
-      .contact-box{padding:30px 22px}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio | Nama Kamu</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;color:#f8f7ff;background:#0b0818;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 15% 20%,rgba(181,94,255,.22),transparent 28%),radial-gradient(circle at 85% 15%,rgba(76,201,240,.16),transparent 25%),radial-gradient(circle at 70% 80%,rgba(255,92,168,.14),transparent 30%),#0b0818}
+a{text-decoration:none;color:inherit}.container{width:min(1120px,90%);margin:auto}
+.header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(11,8,24,.58);border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(18px)}
+.navbar{height:76px;display:flex;align-items:center;justify-content:space-between}.logo{font-size:25px;font-weight:700;letter-spacing:-1px}
+.logo span,.gradient-text{background:linear-gradient(100deg,#c084fc,#f472b6,#67e8f9);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav-links{display:flex;list-style:none;gap:30px}.nav-links a{font-size:14px;color:#c9c5d8;transition:.3s}.nav-links a:hover{color:#fff}
+.menu-toggle{display:none;border:0;background:none;color:#fff;font-size:27px;cursor:pointer}
+.hero{min-height:100vh;display:flex;align-items:center;padding:110px 0 70px;position:relative}
+.hero:after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;right:4%;top:18%;z-index:-1;background:linear-gradient(135deg,#8b5cf6,#ec4899,#22d3ee);filter:blur(80px);opacity:.18}
+.hero-content{display:grid;grid-template-columns:1.15fr .85fr;gap:70px;align-items:center}
+.badge{display:inline-flex;padding:8px 14px;border-radius:100px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.05);color:#d8d2e8;font-size:12px;margin-bottom:22px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(55px,8vw,92px);line-height:.98;letter-spacing:-3px}
+.hero h2{font-size:22px;color:#c8c2d7;font-weight:500;margin:24px 0 15px}.hero-description{max-width:590px;color:#9891aa;font-size:16px;line-height:1.8}
+.hero-buttons{display:flex;gap:14px;margin-top:30px}.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 22px;border-radius:12px;font-weight:700;font-size:14px;transition:.3s}
+.btn.primary{color:#fff;background:linear-gradient(100deg,#8b5cf6,#ec4899);box-shadow:0 12px 35px rgba(139,92,246,.25)}.btn.primary:hover{transform:translateY(-3px)}
+.btn.secondary{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.04);color:#e8e4f1}.btn.secondary:hover{background:rgba(255,255,255,.09);transform:translateY(-3px)}
+.profile-wrap{position:relative;display:flex;justify-content:center}.profile-card{width:min(360px,100%);height:410px;border-radius:30px;padding:10px;background:linear-gradient(145deg,rgba(192,132,252,.7),rgba(103,232,249,.35),rgba(236,72,153,.65));box-shadow:0 30px 90px rgba(0,0,0,.35);transform:rotate(2deg)}
+.profile-inner{height:100%;border-radius:24px;background:linear-gradient(145deg,#171027,#0e0b1d);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.profile-circle{width:180px;height:180px;border-radius:50%;display:grid;place-items:center;font-family:'Playfair Display',serif;font-size:58px;background:linear-gradient(135deg,#c084fc,#f472b6,#67e8f9);color:#fff;box-shadow:0 15px 55px rgba(192,132,252,.25)}
+.profile-inner h3{font-size:21px;margin-top:25px}.profile-inner p{color:#928ba4;font-size:13px;margin-top:5px}
+.section{padding:105px 0}.section.alt{background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.01));border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)}
+.section-title{text-align:center;margin-bottom:52px}.section-title p{color:#c084fc;font-size:11px;font-weight:700;letter-spacing:3px;margin-bottom:9px}.section-title h2{font-family:'Playfair Display',serif;font-size:42px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:55px}.about-text h3{font-size:25px;margin-bottom:15px}.about-text p{color:#9c95ad;line-height:1.9;margin-bottom:15px}
+.info-box,.skill-card,.project-card{background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.025));border:1px solid rgba(255,255,255,.09);box-shadow:0 20px 50px rgba(0,0,0,.12)}
+.info-box{border-radius:18px;padding:22px}.info-box div{display:flex;justify-content:space-between;gap:20px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.07)}.info-box div:last-child{border-bottom:0}.info-box span{color:#9b94aa}
+.skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.skill-card{border-radius:18px;padding:28px 20px;text-align:center;transition:.35s}.skill-card:hover,.project-card:hover{transform:translateY(-7px);border-color:rgba(192,132,252,.35)}
+.skill-icon{width:64px;height:64px;margin:0 auto 18px;border-radius:18px;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;background:linear-gradient(135deg,#8b5cf6,#ec4899)}
+.skill-card h3{font-size:17px;margin-bottom:7px}.skill-card p,.project-content p{color:#8f889e;font-size:13px;line-height:1.6}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.project-card{border-radius:20px;overflow:hidden;transition:.35s}
+.project-image{height:185px;display:flex;align-items:flex-end;padding:20px;position:relative;overflow:hidden}.project-image:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 25% 20%,#c084fc,transparent 32%),radial-gradient(circle at 80% 70%,#22d3ee,transparent 38%),linear-gradient(135deg,#241341,#351331)}
+.project-image.two:before{background:radial-gradient(circle at 75% 25%,#67e8f9,transparent 30%),radial-gradient(circle at 25% 80%,#8b5cf6,transparent 40%),#101a35}.project-image.three:before{background:radial-gradient(circle at 50% 20%,#f472b6,transparent 35%),radial-gradient(circle at 15% 80%,#8b5cf6,transparent 35%),#241022}
+.project-image span{position:relative;z-index:1;font-size:11px;letter-spacing:2px;font-weight:700}.project-content{padding:22px}.project-content h3{font-size:19px;margin-bottom:8px}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:16px}.tags span{padding:5px 9px;border-radius:8px;background:rgba(192,132,252,.1);color:#cbb5e9;font-size:10px}
+.contact-box{border-radius:25px;padding:50px;display:flex;align-items:center;justify-content:space-between;gap:30px;background:linear-gradient(120deg,rgba(139,92,246,.18),rgba(236,72,153,.13),rgba(34,211,238,.09));border:1px solid rgba(255,255,255,.1)}
+.contact-box h3{font-family:'Playfair Display',serif;font-size:31px;margin-bottom:10px}.contact-box p{color:#aaa2b8;max-width:620px}
+footer{padding:28px;text-align:center;color:#716b7e;font-size:12px;border-top:1px solid rgba(255,255,255,.06)}
+@media(max-width:850px){.menu-toggle{display:block}.nav-links{position:absolute;top:76px;left:0;width:100%;padding:22px;display:none;flex-direction:column;gap:18px;background:rgba(11,8,24,.97);border-bottom:1px solid rgba(255,255,255,.08)}.nav-links.active{display:flex}.hero-content,.about-grid{grid-template-columns:1fr}.profile-wrap{order:-1}.profile-card{height:330px;width:300px}.profile-circle{width:145px;height:145px;font-size:45px}.skills-grid{grid-template-columns:repeat(2,1fr)}.projects-grid{grid-template-columns:1fr}.contact-box{flex-direction:column;align-items:flex-start}}
+@media(max-width:500px){.hero h1{letter-spacing:-2px}.hero-buttons{flex-direction:column}.btn{width:100%}.skills-grid{grid-template-columns:1fr}.section{padding:80px 0}.section-title h2{font-size:35px}.contact-box{padding:30px 23px}}
+</style>
 </head>
-
 <body>
-  <header class="header">
-    <nav class="navbar container">
-      <a href="#home" class="logo">Port<span>folio.</span></a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Buka menu">☰</button>
-
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero" id="home">
-      <div class="container hero-content">
-        <div class="hero-text">
-          <p class="eyebrow">HELLO, I'M</p>
-          <h1>Nama <span>Kamu</span></h1>
-          <h2>Web Developer & Designer</h2>
-          <p class="hero-description">
-            Saya membuat website yang modern, responsif, dan mudah digunakan.
-            Selamat datang di portfolio saya.
-          </p>
-          <div class="hero-buttons">
-            <a href="#projects" class="btn primary">Lihat Project</a>
-            <a href="#contact" class="btn secondary">Hubungi Saya</a>
-          </div>
-        </div>
-
-        <div class="profile-card">
-          <div class="profile-circle">NK</div>
-          <p>Creative Developer</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="about">
-      <div class="container">
-        <div class="section-title">
-          <p>ABOUT ME</p>
-          <h2>Tentang Saya</h2>
-        </div>
-
-        <div class="about-grid">
-          <div>
-            <h3>Siapa saya?</h3>
-            <p>Halo! Saya <strong>Nama Kamu</strong>, seseorang yang tertarik dengan dunia teknologi, desain, dan pengembangan website.</p>
-            <p>Saya senang membuat tampilan website yang menarik sekaligus nyaman digunakan.</p>
-          </div>
-
-          <div class="info-box">
-            <div><strong>Nama</strong><span>Nama Kamu</span></div>
-            <div><strong>Email</strong><span>emailkamu@gmail.com</span></div>
-            <div><strong>Lokasi</strong><span>Indonesia</span></div>
-            <div><strong>Status</strong><span>Available for Work</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section alt" id="skills">
-      <div class="container">
-        <div class="section-title">
-          <p>MY SKILLS</p>
-          <h2>Kemampuan</h2>
-        </div>
-
-        <div class="skills-grid">
-          <div class="skill-card"><div class="skill-icon">HTML</div><h3>HTML</h3><p>Membuat struktur website yang rapi dan semantik.</p></div>
-          <div class="skill-card"><div class="skill-icon">CSS</div><h3>CSS</h3><p>Membuat tampilan website modern dan responsive.</p></div>
-          <div class="skill-card"><div class="skill-icon">JS</div><h3>JavaScript</h3><p>Menambahkan interaksi dan fitur pada website.</p></div>
-          <div class="skill-card"><div class="skill-icon">UI</div><h3>UI Design</h3><p>Mendesain interface yang sederhana dan mudah digunakan.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="projects">
-      <div class="container">
-        <div class="section-title">
-          <p>MY WORK</p>
-          <h2>Project Saya</h2>
-        </div>
-
-        <div class="projects-grid">
-          <article class="project-card">
-            <div class="project-image">PROJECT 01</div>
-            <div class="project-content">
-              <h3>Dine & Reserve</h3>
-              <p>Website reservasi restoran dengan fitur pengelolaan meja dan data reservasi.</p>
-              <div class="tags"><span>PHP</span><span>MySQL</span><span>CSS</span></div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-image">PROJECT 02</div>
-            <div class="project-content">
-              <h3>Landing Page</h3>
-              <p>Landing page modern untuk memperkenalkan produk atau layanan.</p>
-              <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-image">PROJECT 03</div>
-            <div class="project-content">
-              <h3>Personal Portfolio</h3>
-              <p>Website portfolio pribadi untuk menampilkan profil dan karya.</p>
-              <div class="tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section contact-section" id="contact">
-      <div class="container">
-        <div class="section-title">
-          <p>CONTACT</p>
-          <h2>Hubungi Saya</h2>
-        </div>
-
-        <div class="contact-box">
-          <div>
-            <h3>Tertarik bekerja sama?</h3>
-            <p>Silakan hubungi saya melalui email. Saya akan dengan senang hati berdiskusi dengan kamu.</p>
-          </div>
-          <a class="btn primary" href="mailto:emailkamu@gmail.com">Kirim Email</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>© <span id="year"></span> Nama Kamu. All Rights Reserved.</p>
-  </footer>
-
-  <script>
-    const menuToggle = document.getElementById("menuToggle");
-    const navLinks = document.getElementById("navLinks");
-
-    menuToggle.addEventListener("click", () => {
-      navLinks.classList.toggle("active");
-    });
-
-    document.querySelectorAll(".nav-links a").forEach(link => {
-      link.addEventListener("click", () => {
-        navLinks.classList.remove("active");
-      });
-    });
-
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
+<header class="header"><nav class="navbar container">
+<a href="#home" class="logo">Port<span>folio.</span></a>
+<button class="menu-toggle" id="menuToggle">☰</button>
+<ul class="nav-links" id="navLinks"><li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#skills">Skills</a></li><li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li></ul>
+</nav></header>
+<main>
+<section class="hero" id="home"><div class="container hero-content"><div>
+<div class="badge">✦ WELCOME TO MY PORTFOLIO</div>
+<h1>Halo, Saya<br><span class="gradient-text">Nama Kamu.</span></h1>
+<h2>Web Developer & Creative Designer</h2>
+<p class="hero-description">Saya suka mengubah ide menjadi website yang indah, modern, responsif, dan nyaman digunakan.</p>
+<div class="hero-buttons"><a href="#projects" class="btn primary">Lihat Project ✦</a><a href="#contact" class="btn secondary">Hubungi Saya</a></div>
+</div><div class="profile-wrap"><div class="profile-card"><div class="profile-inner"><div class="profile-circle">NK</div><h3>Nama Kamu</h3><p>Creative Developer</p></div></div></div></div></section>
+<section class="section" id="about"><div class="container"><div class="section-title"><p>ABOUT ME</p><h2>Tentang Saya</h2></div><div class="about-grid"><div class="about-text"><h3>Mengenal saya lebih dekat ✨</h3><p>Halo! Saya <strong>Nama Kamu</strong>, seseorang yang tertarik dengan teknologi, desain, dan pengembangan website.</p><p>Saya senang membuat website dengan tampilan yang aesthetic, sederhana, dan mudah digunakan.</p></div><div class="info-box"><div><strong>Nama</strong><span>Nama Kamu</span></div><div><strong>Email</strong><span>emailkamu@gmail.com</span></div><div><strong>Lokasi</strong><span>Indonesia</span></div><div><strong>Status</strong><span>Available for Work</span></div></div></div></div></section>
+<section class="section alt" id="skills"><div class="container"><div class="section-title"><p>MY SKILLS</p><h2>Keahlian</h2></div><div class="skills-grid"><div class="skill-card"><div class="skill-icon">HTML</div><h3>HTML</h3><p>Struktur website yang rapi dan semantik.</p></div><div class="skill-card"><div class="skill-icon">CSS</div><h3>CSS</h3><p>Desain modern, responsive, dan aesthetic.</p></div><div class="skill-card"><div class="skill-icon">JS</div><h3>JavaScript</h3><p>Interaksi website yang dinamis.</p></div><div class="skill-card"><div class="skill-icon">UI</div><h3>UI Design</h3><p>Interface yang menarik dan mudah digunakan.</p></div></div></div></section>
+<section class="section" id="projects"><div class="container"><div class="section-title"><p>MY WORK</p><h2>Project Saya</h2></div><div class="projects-grid">
+<article class="project-card"><div class="project-image"><span>PROJECT 01</span></div><div class="project-content"><h3>Dine & Reserve</h3><p>Website reservasi restoran dengan fitur pengelolaan meja dan data reservasi.</p><div class="tags"><span>PHP</span><span>MySQL</span><span>CSS</span></div></div></article>
+<article class="project-card"><div class="project-image two"><span>PROJECT 02</span></div><div class="project-content"><h3>Landing Page</h3><p>Landing page modern untuk memperkenalkan produk atau layanan.</p><div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div></div></article>
+<article class="project-card"><div class="project-image three"><span>PROJECT 03</span></div><div class="project-content"><h3>Personal Portfolio</h3><p>Website portfolio pribadi untuk menampilkan profil dan karya.</p><div class="tags"><span>HTML</span><span>CSS</span><span>JS</span></div></div></article>
+</div></div></section>
+<section class="section" id="contact"><div class="container"><div class="section-title"><p>CONTACT</p><h2>Mari Terhubung</h2></div><div class="contact-box"><div><h3>Punya project menarik?</h3><p>Jangan ragu untuk menghubungi saya. Mari berdiskusi dan membuat sesuatu yang keren bersama.</p></div><a class="btn primary" href="mailto:emailkamu@gmail.com">Kirim Email ✉</a></div></div></section>
+</main>
+<footer>© <span id="year"></span> Nama Kamu · Made with ✦</footer>
+<script>
+const menuToggle=document.getElementById("menuToggle"),navLinks=document.getElementById("navLinks");
+menuToggle.addEventListener("click",()=>navLinks.classList.toggle("active"));
+document.querySelectorAll(".nav-links a").forEach(link=>link.addEventListener("click",()=>navLinks.classList.remove("active")));
+document.getElementById("year").textContent=new Date().getFullYear();
+</script>
+</body></html>
